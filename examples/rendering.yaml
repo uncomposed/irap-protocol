@@ -1,0 +1,15 @@
+irap_version: "0.1"
+rendering:
+  id: https://creator.example/renderings/pacing-song
+  title: Pacing Song
+  artifact:
+    uri: https://creator.example/media/pacing-song.flac
+    digest: sha256:1111111111111111111111111111111111111111111111111111111111111111
+  renders:
+    idea_id: https://ideas.example.org/ai-pacing
+    git:
+      repository: https://codeberg.org/example/ai-pacing.git
+      object_format: sha1
+      commit: "2222222222222222222222222222222222222222"
+  creator:
+    id: https://creator.example/#me

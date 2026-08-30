@@ -1,0 +1,17 @@
+spec_version: "0.1"
+claims:
+  faithful_rendering:
+    definition: >
+      The rendering materially represents this exact IRAP state without silently
+      substituting a substantively different protocol while presenting itself as faithful.
+    does_not_mean:
+      - The verifier endorses the protocol.
+      - The verifier believes every claim made by a rendering.
+      - The rendering is complete or defect-free.
+      - The verifier is independent of the rendering's author.
+    recognition:
+      eligible_verifiers:
+        ids:
+          - https://github.com/uncomposed
+      rule:
+        type: any_one_pass

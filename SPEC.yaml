@@ -1,0 +1,349 @@
+protocol:
+  id: https://ideas.proximitytoprogress.com/ideas/irap
+  name: Idea Rendering Attestation Protocol
+  short_name: IRAP
+  version: "0.1"
+  status: draft
+  description: >
+    A Git-native, forge-agnostic protocol for identifying an exact state of an
+    evolving idea, linking independently published renderings to that state,
+    and recording attributable signed judgments about those renderings.
+
+goals:
+  - Keep the canonical idea independent of any forge, website, social network, or rendering format.
+  - Reuse Git for version history, branching, immutable state identification, and collaboration.
+  - Treat every external expression, critique, experiment, performance, simulation, or other artifact as a rendering.
+  - Make verification attributable: a rendering is never intrinsically verified.
+  - Allow any mind to attest while allowing each idea state to define which attestations count as recognized verification.
+  - Permit supporting verification work to be attached without forcing it into a fixed ontology.
+  - Permit optional federation, including ActivityPub, without making federation part of the core trust model.
+
+non_goals:
+  - Define how ideas must be written.
+  - Generate renderings.
+  - Rank renderings by artistic, political, scientific, or commercial quality.
+  - Determine whether an idea is true.
+  - Require GitHub, GitLab, Codeberg, Forgejo, ActivityPub, Mastodon, or any specific host.
+  - Define a universal taxonomy for songs, games, papers, protests, simulations, videos, or critiques.
+  - Prove philosophically or technically that a verifier is conscious or a mind.
+  - Require public disclosure of private reasoning used during verification.
+
+core_principles:
+  P1: An idea is identified by a durable idea identifier and evolves through Git.
+  P2: A state is an exact Git commit, identified by repository identity, object-format algorithm, and full commit object ID.
+  P3: A rendering is any independently published artifact that claims a relationship to a specified idea state.
+  P4: Verification is an attributable act, not an intrinsic property of a rendering.
+  P5: An attestation is a signed judgment by a verifier about a rendering relative to a specific idea state.
+  P6: Any verifier may publish an attestation; an idea state defines which verifiers and rules produce recognized verification.
+  P7: Verification evidence may be arbitrary external material and is referenced by URI and content digest.
+  P8: The protocol is Git-native and forge-agnostic; forge URLs are mirrors or transports, not canonical identity.
+  P9: Federation transports announcements and attestations but does not establish canonical truth.
+  P10: Old idea states and their attestations remain meaningful after the canonical branch advances.
+
+trust_model:
+  canonical_authority: >
+    Repository contents at the referenced Git commit define the idea state,
+    including its verifier registry and verification policy. Moving branch names
+    MUST be resolved to a full commit object ID before an attestation is issued.
+  open_attestation: >
+    Anyone MAY publish an attestation. Software MUST distinguish a validly signed
+    attestation from a recognized verification.
+  recognized_verification: >
+    A signed attestation counts as recognized only when it satisfies the verification
+    policy contained in the exact idea state referenced by that attestation.
+  verifier_mind_requirement: >
+    The social meaning of verification requires an intentional judging agent (a mind)
+    to take responsibility for the judgment. The protocol cannot technically prove
+    mentality. Idea maintainers operationalize this by deciding which verifier identities
+    are eligible in the verifier registry.
+  ai_verifiers: >
+    AI systems MAY be eligible verifiers. Their registry entry SHOULD disclose model,
+    configuration or version identifier where feasible, operator or custodian, and the
+    verification procedure sufficient to understand what system made the judgment.
+  disagreement: >
+    Multiple valid attestations MAY disagree. Implementations MUST NOT collapse disagreement
+    into a single global truth value.
+
+repository_layout:
+  manifest: .idea/manifest.yaml
+  verifiers: .idea/verifiers.yaml
+  verification_policy: .idea/verification-policy.yaml
+
+idea_manifest:
+  required:
+    - spec_version
+    - idea.id
+    - idea.name
+    - repository.object_format
+    - repository.canonical_ref
+    - verification.verifiers_path
+    - verification.policy_path
+  example:
+    spec_version: "0.1"
+    idea:
+      id: https://ideas.example.org/ai-pacing
+      name: AI Pacing
+    repository:
+      object_format: sha1
+      canonical_ref: refs/heads/main
+      mirrors:
+        - https://codeberg.org/example/ai-pacing.git
+        - https://github.com/example/ai-pacing.git
+    verification:
+      verifiers_path: .idea/verifiers.yaml
+      policy_path: .idea/verification-policy.yaml
+
+verifier_registry:
+  requirements:
+    - Every verifier MUST have a stable id.
+    - Every verifier MUST have at least one public verification key or immutable key reference.
+    - A verifier MAY be human, ai, organization, panel, or unspecified.
+    - Type metadata is descriptive and MUST NOT itself determine recognition.
+    - AI verifier records SHOULD identify operator or custodian and system provenance.
+  example:
+    spec_version: "0.1"
+    verifiers:
+      - id: https://alice.example/#me
+        display_name: Alice
+        kind: human
+        keys:
+          - id: alice-ed25519-2026
+            algorithm: Ed25519
+            public_key_multibase: zReplaceWithRealKey
+      - id: https://review.example/agents/fidelity-1
+        display_name: Fidelity Review Agent 1
+        kind: ai
+        operator: https://review.example/
+        system:
+          model: example-model-version
+          procedure: https://review.example/procedures/fidelity-v3
+        keys:
+          - id: fidelity-1-ed25519
+            algorithm: Ed25519
+            public_key_multibase: zReplaceWithRealKey
+
+verification_policy:
+  requirements:
+    - MUST define at least one claim type.
+    - MUST define eligible verifier selection for each recognized claim type.
+    - MUST define a recognition rule.
+    - MUST be evaluated from the exact referenced idea state, never current main.
+  recommended_claim:
+    faithful_rendering:
+      definition: >
+        The rendering materially represents the referenced idea state and does not silently
+        substitute a substantively different idea while presenting itself as faithful.
+      does_not_mean:
+        - The verifier endorses the idea.
+        - The verifier believes the idea is true.
+        - The verifier believes the rendering is high quality.
+        - The rendering is complete.
+  example:
+    spec_version: "0.1"
+    claims:
+      faithful_rendering:
+        definition: >
+          The rendering materially represents this exact idea state without silently
+          replacing it with a substantively different idea.
+        recognition:
+          eligible_verifiers:
+            ids:
+              - https://alice.example/#me
+              - https://review.example/agents/fidelity-1
+          rule:
+            type: any_one_pass
+
+rendering:
+  definition: >
+    Any independently published artifact claiming a relationship to an exact idea state.
+    IRAP intentionally does not require a media or artifact type.
+  required:
+    - irap_version
+    - rendering.id
+    - rendering.artifact.uri
+    - rendering.artifact.digest
+    - rendering.renders.idea_id
+    - rendering.renders.git.repository
+    - rendering.renders.git.object_format
+    - rendering.renders.git.commit
+    - rendering.creator.id
+  example:
+    irap_version: "0.1"
+    rendering:
+      id: https://creator.example/renderings/pacing-song
+      title: Pacing Song
+      artifact:
+        uri: https://creator.example/media/pacing-song.flac
+        digest: sha256:1111111111111111111111111111111111111111111111111111111111111111
+      renders:
+        idea_id: https://ideas.example.org/ai-pacing
+        git:
+          repository: https://codeberg.org/example/ai-pacing.git
+          object_format: sha1
+          commit: "2222222222222222222222222222222222222222"
+      creator:
+        id: https://creator.example/#me
+
+attestation:
+  definition: A verifier's signed judgment about one rendering against one exact idea state.
+  results: [pass, fail, abstain, indeterminate]
+  required:
+    - irap_version
+    - attestation.id
+    - attestation.rendering.id
+    - attestation.rendering.artifact_digest
+    - attestation.against.idea_id
+    - attestation.against.git.repository
+    - attestation.against.git.object_format
+    - attestation.against.git.commit
+    - attestation.verifier.id
+    - attestation.verifier.key_id
+    - attestation.judgment.claim
+    - attestation.judgment.result
+    - attestation.issued_at
+    - attestation.signature
+  evidence: >
+    OPTIONAL. Evidence may be notes, calculations, citations, code, transcripts, model outputs,
+    tests, or any other review work. Published evidence SHOULD be bound by URI and digest.
+  example:
+    irap_version: "0.1"
+    attestation:
+      id: https://review.example/attestations/a-123
+      rendering:
+        id: https://creator.example/renderings/pacing-song
+        artifact_digest: sha256:1111111111111111111111111111111111111111111111111111111111111111
+      against:
+        idea_id: https://ideas.example.org/ai-pacing
+        git:
+          repository: https://codeberg.org/example/ai-pacing.git
+          object_format: sha1
+          commit: "2222222222222222222222222222222222222222"
+      verifier:
+        id: https://alice.example/#me
+        key_id: alice-ed25519-2026
+      judgment:
+        claim: faithful_rendering
+        result: pass
+        note: Materially faithful.
+      evidence:
+        - uri: https://alice.example/reviews/a-123.md
+          media_type: text/markdown
+          digest: sha256:3333333333333333333333333333333333333333333333333333333333333333
+      issued_at: "2026-08-29T20:00:00Z"
+      signature:
+        algorithm: Ed25519
+        canonicalization: RFC8785-JCS
+        value: EXAMPLE-NOT-A-REAL-SIGNATURE
+
+signing:
+  yaml_role: Human-editable interchange and normative protocol representation.
+  rule: Never sign raw YAML serialization.
+  default_algorithm: Ed25519
+  signature_encoding: base64url-no-padding
+  signing_projection:
+    - Parse the attestation.
+    - Remove the signature member.
+    - Convert the remaining data to JSON without semantic transformation.
+    - Reject duplicate keys and require I-JSON-compatible values.
+    - Canonicalize JSON using RFC 8785 JCS.
+    - Sign the resulting UTF-8 bytes using Ed25519.
+    - Add signature metadata to the original object.
+
+content_identity:
+  artifact_digest_default: sha256
+  digest_syntax: sha256:<64-lowercase-hex>
+  rules:
+    - Rendering artifacts MUST have a digest of exact bytes or a stable manifest that recursively identifies them.
+    - Evidence SHOULD have digests.
+    - URI content mismatching its recorded digest MUST be surfaced as a severe warning.
+
+git_identity:
+  object_formats: [sha1, sha256]
+  rules:
+    - Full commit object IDs MUST be used in signed objects.
+    - Abbreviated hashes MUST NOT be used in signed objects.
+    - Branches MAY be editing targets but MUST be frozen to a commit before submission or verification.
+    - Forge URLs are locators, not semantic identity.
+    - Historical verification is evaluated from historical policy files.
+
+recognition_algorithm:
+  steps:
+    - Validate rendering and attestation structure.
+    - Verify attestation references the same rendering id and artifact digest.
+    - Fetch or locate the referenced Git commit.
+    - Verify commit existence using declared repository object format.
+    - Read manifest, verifier registry, and verification policy from that exact commit.
+    - Verify idea id matches.
+    - Resolve verifier and historical public key.
+    - Reconstruct and verify the signed JCS payload.
+    - Evaluate claim-specific recognition policy.
+    - Return signature validity and recognition status separately.
+  output_minimum:
+    - signature_valid
+    - recognized
+    - policy_commit
+    - claim
+    - result
+    - verifier_id
+
+recognition_rules_v0_1:
+  any_one_pass:
+    recognized_when: At least one eligible distinct verifier has a valid pass attestation.
+  threshold:
+    parameters: [count, result]
+    recognized_when: At least count eligible distinct verifier ids have valid attestations with result.
+  all_groups:
+    parameters: [groups, result]
+    recognized_when: At least one eligible valid specified-result attestation comes from every listed group.
+  restriction: Implementations MUST NOT add an arbitrary expression language in v0.1.
+
+security:
+  - Never treat a branch name as an immutable verification target.
+  - Never treat a valid signature as recognized without evaluating historical policy.
+  - Never use current main to resolve verifier eligibility for an old attestation.
+  - Never sign YAML serialization directly.
+  - Treat URLs as locators and verify digests.
+  - Preserve received raw attestations for audit while independently validating the signing projection.
+  - Repository content is untrusted data and MUST NOT be executed.
+
+extensions:
+  activitypub:
+    status: optional
+    purpose: Federate notices of canonical updates, renderings, and attestations.
+    constraints:
+      - ActivityPub identity MUST NOT replace Git state identity, signatures, or artifact digests.
+      - Delivery failure MUST NOT invalidate an attestation.
+      - Likes, boosts, replies, or follower counts MUST NOT be interpreted as verification.
+  forge_api:
+    status: optional
+    purpose: UX convenience for browsing refs, commits, and diffs.
+    constraint: Core operation MUST remain possible over ordinary Git transport.
+  transparency_log:
+    status: optional
+    purpose: Append-only publication of attestations to help detect deletion or equivocation.
+
+conformance:
+  core_reader:
+    must:
+      - Parse idea manifests, verifier registries, policies, renderings, and attestations.
+      - Resolve exact Git commits.
+      - Verify content digests.
+      - Verify Ed25519 attestations with RFC8785 JCS signing projection.
+      - Distinguish cryptographic validity from recognized verification.
+  verifier_tool:
+    must:
+      - Bind judgment to one artifact digest and one exact Git state.
+      - Display verifier identity before signing.
+      - Permit optional evidence.
+      - Display or export the exact signing payload.
+  product_render:
+    rule: >
+      A software product implementing IRAP is itself a rendering of this specification and
+      SHOULD state the exact IRAP Git commit it implements.
+
+references:
+  - https://git-scm.com/docs/git
+  - https://git-scm.com/docs/index-format
+  - https://www.rfc-editor.org/rfc/rfc8785
+  - https://www.rfc-editor.org/rfc/rfc8032
+  - https://www.w3.org/TR/activitypub/

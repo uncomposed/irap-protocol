@@ -1,0 +1,28 @@
+irap_version: "0.1"
+attestation:
+  id: https://reviewer.example/attestations/123
+  rendering:
+    id: https://creator.example/renderings/pacing-song
+    artifact_digest: sha256:1111111111111111111111111111111111111111111111111111111111111111
+  against:
+    idea_id: https://ideas.example.org/ai-pacing
+    git:
+      repository: https://codeberg.org/example/ai-pacing.git
+      object_format: sha1
+      commit: "2222222222222222222222222222222222222222"
+  verifier:
+    id: https://reviewer.example/#alice
+    key_id: alice-2026
+  judgment:
+    claim: faithful_rendering
+    result: pass
+    note: Example only.
+  evidence:
+    - uri: https://reviewer.example/reviews/123.md
+      media_type: text/markdown
+      digest: sha256:3333333333333333333333333333333333333333333333333333333333333333
+  issued_at: "2026-08-29T20:00:00Z"
+  signature:
+    algorithm: Ed25519
+    canonicalization: RFC8785-JCS
+    value: EXAMPLE-NOT-A-REAL-SIGNATURE
