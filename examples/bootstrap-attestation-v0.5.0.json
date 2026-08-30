@@ -1,0 +1,40 @@
+{
+  "irap_version": "0.1",
+  "attestation": {
+    "id": "https://ideas.proximitytoprogress.com/attestations/irap-registry-author-26f64e09c366aed3d65a7310cb8aae08c068702c",
+    "rendering": {
+      "id": "https://ideas.proximitytoprogress.com/renderings/irap-registry-26f64e09c366aed3d65a7310cb8aae08c068702c",
+      "artifact_digest": "sha256:09e489c8b9a4b66e79e358a458629de4d50b98d02544ffb0948fc3b7fa91bd19"
+    },
+    "against": {
+      "idea_id": "https://ideas.proximitytoprogress.com/ideas/irap",
+      "git": {
+        "repository": "https://github.com/uncomposed/irap-protocol.git",
+        "object_format": "sha1",
+        "commit": "ed3ad298540e2369486120225f9e91302a35a404"
+      }
+    },
+    "verifier": {
+      "id": "https://github.com/uncomposed",
+      "key_id": "uncomposed-ed25519-2026-01"
+    },
+    "judgment": {
+      "claim": "faithful_rendering",
+      "result": "pass",
+      "note": "Author bootstrap attestation over the v0.5.0 deployment, including immutable Git-pinned publication bundles with dry-run, conflict refusal, and loopback-only administrator authorization. This establishes attributable integrity, not independent review."
+    },
+    "evidence": [
+      {
+        "uri": "https://ideas.proximitytoprogress.com/artifacts/26f64e09c366aed3d65a7310cb8aae08c068702c/deployment-manifest.json",
+        "media_type": "application/json",
+        "digest": "sha256:09e489c8b9a4b66e79e358a458629de4d50b98d02544ffb0948fc3b7fa91bd19"
+      }
+    ],
+    "issued_at": "2026-08-30T19:23:54Z",
+    "signature": {
+      "algorithm": "Ed25519",
+      "canonicalization": "RFC8785-JCS",
+      "value": "WndqOGHGLftkmLKtsWbfJo94YCi8S_R4PGjSPelGVkIiOmZmFpHExbTOZ5S9cDzCC-Nq1cywAHeVCZINJaY-AQ"
+    }
+  }
+}
