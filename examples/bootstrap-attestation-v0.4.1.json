@@ -1,0 +1,40 @@
+{
+  "irap_version": "0.1",
+  "attestation": {
+    "id": "https://ideas.proximitytoprogress.com/attestations/irap-registry-author-c96d8ad5b75a9e470de1ed032fa7355d32b6f220",
+    "rendering": {
+      "id": "https://ideas.proximitytoprogress.com/renderings/irap-registry-c96d8ad5b75a9e470de1ed032fa7355d32b6f220",
+      "artifact_digest": "sha256:59d33f448f90ddf0a6432f4996a84c78e92e74e3e5435a4816c7282e1d6988d7"
+    },
+    "against": {
+      "idea_id": "https://ideas.proximitytoprogress.com/ideas/irap",
+      "git": {
+        "repository": "https://github.com/uncomposed/irap-protocol.git",
+        "object_format": "sha1",
+        "commit": "ed3ad298540e2369486120225f9e91302a35a404"
+      }
+    },
+    "verifier": {
+      "id": "https://github.com/uncomposed",
+      "key_id": "uncomposed-ed25519-2026-01"
+    },
+    "judgment": {
+      "claim": "faithful_rendering",
+      "result": "pass",
+      "note": "Author bootstrap attestation over the v0.4.1 deployment, including public rendering and attestation permalink resolution. This establishes attributable integrity, not independent review."
+    },
+    "evidence": [
+      {
+        "uri": "https://ideas.proximitytoprogress.com/artifacts/c96d8ad5b75a9e470de1ed032fa7355d32b6f220/deployment-manifest.json",
+        "media_type": "application/json",
+        "digest": "sha256:59d33f448f90ddf0a6432f4996a84c78e92e74e3e5435a4816c7282e1d6988d7"
+      }
+    ],
+    "issued_at": "2026-08-30T18:47:40Z",
+    "signature": {
+      "algorithm": "Ed25519",
+      "canonicalization": "RFC8785-JCS",
+      "value": "uJJbB5HTO3mVZfbwgdvwIL6l8E0m-yvwWeGKTfmM7ef58o-RoHXETh78YNJYLUlCRjZY6RtYzYYsLqJUE-j8Bg"
+    }
+  }
+}

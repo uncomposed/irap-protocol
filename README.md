@@ -12,7 +12,7 @@ This repository is the canonical idea history for IRAP. A branch is an editing c
 - `.idea/manifest.yaml` — durable idea identity and Git metadata
 - `.idea/verifiers.yaml` — historical verifier keys
 - `.idea/verification-policy.yaml` — claim recognition policy
-- `examples/` — illustrative records plus the signed author-bootstrap attestation for the reference deployment
+- `examples/` — illustrative records plus signed author-bootstrap attestations for immutable reference deployments
 - `source/irap-v0.1.zip` — recovered source package preserved byte-for-byte
 
 ## Trust boundaries
@@ -25,7 +25,7 @@ This repository is the canonical idea history for IRAP. A branch is an editing c
 
 The initial eligible verifier is the protocol author. A recognized author attestation is attributable bootstrap evidence, not independent review. Independent verifier identities can be added in later commits without changing how historical attestations are evaluated.
 
-The signed bootstrap statement is preserved as `examples/bootstrap-attestation.json`. Its target remains the original protocol commit named inside the attestation; storing the record in a later commit does not change that historical target.
+Signed bootstrap statements are preserved beneath `examples/`. Their target remains the original protocol commit named inside each attestation; storing the records in later commits does not change that historical target.
 
 ## Current public implementation
 
