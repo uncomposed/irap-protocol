@@ -2,7 +2,7 @@ publication_version: "1"
 
 idea:
   slug: irap
-  summary: >
+  summary: >-
     A Git-native protocol for linking exact idea states, independently
     published renderings, and attributable signed judgments.
   specification_path: SPEC.yaml
