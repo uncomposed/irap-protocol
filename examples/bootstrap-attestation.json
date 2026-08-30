@@ -1,0 +1,40 @@
+{
+  "irap_version": "0.1",
+  "attestation": {
+    "id": "https://ideas.proximitytoprogress.com/attestations/irap-registry-author-5d881184a2fc64204b8c7045380848f28edbf10f",
+    "rendering": {
+      "id": "https://ideas.proximitytoprogress.com/renderings/irap-registry-5d881184a2fc64204b8c7045380848f28edbf10f",
+      "artifact_digest": "sha256:6aa9e509d3a677a7ce96edde693fa7c2db107efee945ef36f4cd0eff449508b3"
+    },
+    "against": {
+      "idea_id": "https://ideas.proximitytoprogress.com/ideas/irap",
+      "git": {
+        "repository": "https://github.com/uncomposed/irap-protocol.git",
+        "object_format": "sha1",
+        "commit": "ed3ad298540e2369486120225f9e91302a35a404"
+      }
+    },
+    "verifier": {
+      "id": "https://github.com/uncomposed",
+      "key_id": "uncomposed-ed25519-2026-01"
+    },
+    "judgment": {
+      "claim": "faithful_rendering",
+      "result": "pass",
+      "note": "Author bootstrap attestation over the pinned protocol state and immutable deployment manifest. This establishes attributable integrity, not independent review."
+    },
+    "evidence": [
+      {
+        "uri": "https://ideas.proximitytoprogress.com/artifacts/5d881184a2fc64204b8c7045380848f28edbf10f/deployment-manifest.json",
+        "media_type": "application/json",
+        "digest": "sha256:6aa9e509d3a677a7ce96edde693fa7c2db107efee945ef36f4cd0eff449508b3"
+      }
+    ],
+    "issued_at": "2026-08-30T17:27:28Z",
+    "signature": {
+      "algorithm": "Ed25519",
+      "canonicalization": "RFC8785-JCS",
+      "value": "ISmv1xBDvXghnsrYBsXFA07zFsvTC-ldO4s9yXdb10_zXD1nnu9ErvJs31WG4M6o2yIAtbAGnn-YairH-hM_Cw"
+    }
+  }
+}
