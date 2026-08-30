@@ -1,0 +1,20 @@
+irap_version: "0.1"
+rendering:
+  id: https://proximitytoprogress.com/ideas/irap/renderings/explorer-b9de64b
+  title: IRAP Idea Explorer
+  description: >
+    A human-facing projection of the canonical protocol model that separates
+    exact idea identity, independent renderings, signed attestations, and
+    recognition under historical policy while exposing the verification and
+    security boundaries.
+  artifact:
+    uri: https://proximitytoprogress.com/ideas/irap/releases/b9de64bfbc5ccdaed7898e44db9323edfe28f473/rendering-manifest.json
+    digest: sha256:a2566b9f07c2ba432d84cc3cc7c6ade3005f85548d023234dc0e62db68fc9cee
+  renders:
+    idea_id: https://ideas.proximitytoprogress.com/ideas/irap
+    git:
+      repository: https://github.com/uncomposed/irap-protocol.git
+      object_format: sha1
+      commit: "ed3ad298540e2369486120225f9e91302a35a404"
+  creator:
+    id: https://github.com/uncomposed

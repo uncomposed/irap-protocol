@@ -1,0 +1,15 @@
+publication_version: "1"
+
+idea:
+  slug: irap
+  summary: >
+    A Git-native protocol for linking exact idea states, independently
+    published renderings, and attributable signed judgments.
+  specification_path: SPEC.yaml
+  state:
+    repository: https://github.com/uncomposed/irap-protocol.git
+    object_format: sha1
+    commit: "ed3ad298540e2369486120225f9e91302a35a404"
+
+renderings:
+  - path: renderings/idea-explorer-v0.1.yaml
