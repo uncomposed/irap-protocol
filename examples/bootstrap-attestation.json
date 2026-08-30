@@ -1,10 +1,10 @@
 {
   "irap_version": "0.1",
   "attestation": {
-    "id": "https://ideas.proximitytoprogress.com/attestations/irap-registry-author-5d881184a2fc64204b8c7045380848f28edbf10f",
+    "id": "https://ideas.proximitytoprogress.com/attestations/irap-registry-author-5d88118c37e851404608998a90144791bd6f1f4b",
     "rendering": {
-      "id": "https://ideas.proximitytoprogress.com/renderings/irap-registry-5d881184a2fc64204b8c7045380848f28edbf10f",
-      "artifact_digest": "sha256:6aa9e509d3a677a7ce96edde693fa7c2db107efee945ef36f4cd0eff449508b3"
+      "id": "https://ideas.proximitytoprogress.com/renderings/irap-registry-5d88118c37e851404608998a90144791bd6f1f4b",
+      "artifact_digest": "sha256:e1e2e9be83c6117946e0105dafd3976fd1689e8c46ec51da5ddd721299250c7c"
     },
     "against": {
       "idea_id": "https://ideas.proximitytoprogress.com/ideas/irap",
@@ -25,16 +25,16 @@
     },
     "evidence": [
       {
-        "uri": "https://ideas.proximitytoprogress.com/artifacts/5d881184a2fc64204b8c7045380848f28edbf10f/deployment-manifest.json",
+        "uri": "https://ideas.proximitytoprogress.com/artifacts/5d88118c37e851404608998a90144791bd6f1f4b/deployment-manifest.json",
         "media_type": "application/json",
-        "digest": "sha256:6aa9e509d3a677a7ce96edde693fa7c2db107efee945ef36f4cd0eff449508b3"
+        "digest": "sha256:e1e2e9be83c6117946e0105dafd3976fd1689e8c46ec51da5ddd721299250c7c"
       }
     ],
     "issued_at": "2026-08-30T17:27:28Z",
     "signature": {
       "algorithm": "Ed25519",
       "canonicalization": "RFC8785-JCS",
-      "value": "ISmv1xBDvXghnsrYBsXFA07zFsvTC-ldO4s9yXdb10_zXD1nnu9ErvJs31WG4M6o2yIAtbAGnn-YairH-hM_Cw"
+      "value": "BYUBc2Il_e5NlWNds6h5kuhDorahrLiRUIeX_O9fEdAMm6MDAOQCfOZO11Q1pnuV6yFM5_vrGrT2WUjAHBB0Bg"
     }
   }
 }
